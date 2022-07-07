@@ -7,7 +7,6 @@
 #include <chrono>
 #include <thread>
 
-
 const int screenWidth = 800;
 const int screenHeight = 600;
 const SDL_Color bg = {0, 0, 0, 255};
@@ -103,13 +102,12 @@ int main(int argc, char* args[]) {
 		
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
         SDL_RenderClear(renderer);
-		SDL_DrawText(renderer, 0, 0, ( char * ) the_now_local.c_str(), font_main, &texture, &rect);
+		SDL_DrawText(renderer, 10, 0, ( char * ) the_now_local.c_str(), font_main, &texture, &rect);
 		SDL_RenderCopy(renderer, texture, NULL, &rect);
-		SDL_DrawText(renderer, 0, 30, ( char * ) the_now_global.c_str(), font_side, &texture, &rect);
+		SDL_DrawText(renderer, 10, 30, ( char * ) the_now_global.c_str(), font_side, &texture, &rect);
 		SDL_RenderCopy(renderer, texture, NULL, &rect);
         SDL_RenderPresent(renderer);
 	
-		
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		SDL_UpdateWindowSurface(window);
 		handleEvents(window, true);
