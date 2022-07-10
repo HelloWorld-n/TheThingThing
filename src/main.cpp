@@ -15,6 +15,7 @@ const SDL_Color sdl_blue = {64, 64, 255, 255};
 const SDL_Color sdl_yellow = {228, 228, 32, 255};
 const int fontSize_main = 36;
 const int fontSize_side = 12;
+const int separateFromEdge = 10;
 
 void SDL_DrawText(
 	SDL_Renderer *renderer, int x, int y, char *text,
@@ -110,13 +111,13 @@ int main(int argc, char* args[]) {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
         SDL_RenderClear(renderer);
 		SDL_DrawText(
-			renderer, 10, (screenHeight / 2) - fontSize_main, ( char * ) the_now_local.c_str(), 
+			renderer, separateFromEdge, (screenHeight / 2) - fontSize_main, ( char * ) the_now_local.c_str(), 
 			font_main, &texture, &rect,
 			bg, sdl_blue
 		);
 		SDL_RenderCopy(renderer, texture, NULL, &rect);
 		SDL_DrawText(
-			renderer, 10, screenHeight / 2, ( char * ) the_now_global.c_str(), 
+			renderer, separateFromEdge, screenHeight / 2, ( char * ) the_now_global.c_str(), 
 			font_main, &texture, &rect,
 			bg, sdl_yellow
 		);
