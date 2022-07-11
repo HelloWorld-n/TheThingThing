@@ -14,8 +14,8 @@ const SDL_Color fg = {196, 196, 196, 255};
 const SDL_Color sdl_blue = {64, 64, 255, 255};
 const SDL_Color sdl_yellow = {228, 228, 32, 255};
 const int fontSize_main = 36;
-const int fontSize_side = 12;
-const int separateFromEdge = 10;
+const int fontSize_side = 24;
+const int separateFromEdge = 12;
 
 void SDL_DrawText(
 	SDL_Renderer *renderer, int x, int y, char *text,
@@ -72,7 +72,7 @@ int enlimit(int num, int limit){
 }
 
 int main(int argc, char* args[]) {
-	const char *fontPath = "fonts/IBM3270.ttf";
+	const char *fontPath = "fonts/CascadiaMono.ttf";
 	SDL_Window *window = NULL;
 	SDL_Surface *screenSurface = NULL;
 	SDL_Renderer *renderer = NULL;
