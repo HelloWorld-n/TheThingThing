@@ -72,7 +72,7 @@ int enlimit(int num, int limit){
 }
 
 int main(int argc, char* args[]) {
-	const char *fontPath = "fonts/Input.ttf";
+	const char *fontPath = "fonts/CascadiaMono.ttf";
 	SDL_Window *window = NULL;
 	SDL_Surface *screenSurface = NULL;
 	SDL_Renderer *renderer = NULL;
