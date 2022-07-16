@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <chrono>
 #include <thread>
+#include "AppUtil.cpp"
 
 const int screenWidth = 760;
 const int screenHeight = 360;
@@ -71,12 +72,31 @@ int enlimit(int num, int limit){
 	}
 }
 
-int main(int argc, char* args[]) {
+int main(int argc, char* argv[]) {
+	std::vector<std::string> args;
+    for(int i = 1; i < argc; i++){
+        args.push_back(argv[i]);   
+    };
+	AppSettings::apply(args);
+
+	if (AppSettings::help){
+		std::fstream file;
+		file.open("./README.md");
+		std::cout << file.rdbuf() << "\n";
+		file.close();
+		return 0;
+	}
+
+
 	const char *fontPath = "fonts/CascadiaMono.ttf";
 	SDL_Window *window = NULL;
 	SDL_Surface *screenSurface = NULL;
 	SDL_Renderer *renderer = NULL;
 	SDL_Texture *texture = NULL;
+
+	const int position_maxDistance = 50;
+	int position_value = 0;
+	int position_add = 1;
 
 	TTF_Init();
 	TTF_Font *font_main = TTF_OpenFont(fontPath, fontSize_main);
@@ -111,13 +131,15 @@ int main(int argc, char* args[]) {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
         SDL_RenderClear(renderer);
 		SDL_DrawText(
-			renderer, separateFromEdge, (screenHeight / 2) - fontSize_main, ( char * ) the_now_local.c_str(), 
+			renderer, separateFromEdge, 
+			(screenHeight / 2) - fontSize_main + position_value, ( char * ) the_now_local.c_str(), 
 			font_main, &texture, &rect,
 			bg, sdl_blue
 		);
 		SDL_RenderCopy(renderer, texture, NULL, &rect);
 		SDL_DrawText(
-			renderer, separateFromEdge, screenHeight / 2, ( char * ) the_now_global.c_str(), 
+			renderer, separateFromEdge, 
+			(screenHeight / 2) + position_value, ( char * ) the_now_global.c_str(), 
 			font_main, &texture, &rect,
 			bg, sdl_yellow
 		);
@@ -127,6 +149,13 @@ int main(int argc, char* args[]) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		SDL_UpdateWindowSurface(window);
 		handleEvents(window, true);
+
+		if (AppSettings::movement){
+			if (std::abs(position_value) > position_maxDistance){
+				position_add = - position_add;
+			}
+			position_value += position_add;
+		}
 	}
 	return 0;
 }
